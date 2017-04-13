@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<div>
+  <ion-list>
+
+  <ion-item>
+    <ion-label floating>Add Todo App</ion-label>
+    <ion-input type="text" [(ngModel)]="todoContent.name"></ion-input>
+  </ion-item>
+
+</ion-list>
+ <button ion-button secondary  (click)="addTodoItem(todoContent)">Add Item</button>
+ </div>
+ <div>
+  <ion-card  *ngFor="let item of todoItem; let i = index">
+
+  <ion-card-header>
+    <span style="float: left"><ion-icon name="close" (click)="deleteTodo(i)" ></ion-icon></span>
+  <span style="float: right"> <ion-icon name="bookmark" (click)="isActive()" *ngIf="active"></ion-icon></span>
+  <span style="float: right"> <ion-icon name="ios-bookmark-outline" (click)="isActive()"  *ngIf="!active"></ion-icon></span>
+  </ion-card-header>
+
+  <ion-card-content>
+   {{item.name}}
+  </ion-card-content>
+
+</ion-card>
+ </div>
+
+
+
+</ion-content>
