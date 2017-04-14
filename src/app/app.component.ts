@@ -16,7 +16,7 @@ import { Register } from '../pages/register/register';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-   rootPage: any = HomePage;
+   rootPage: any = Login;
 
   pages: Array<{title: string, component: any}>;
 

@@ -14,5 +14,33 @@
 
 
 <ion-content padding>
-
+  <form #form="ngForm" (ngSubmit)="doRegister(form)" novalidate>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="First Name" required [(ngModel)]="user.firstName" [ngModelOptions]="{standalone: true}" ngControl="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="Last Name" required [(ngModel)]="user.lastName" [ngModelOptions]="{standalone: true}" ngControl="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="User Name" required [(ngModel)]="user.userName" [ngModelOptions]="{standalone: true}" ngControl="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Email</ion-label>
+      <ion-input type="Email" required [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" ngControl="email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input type="password" required [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}" ngControl="password"></ion-input>
+    </ion-item>
+    <br/>
+    <div>
+      <button ion-button secondary type="submit" block>Register</button>
+    </div>
+      <div>
+        <button ion-button clear block [navPush]="login">Login</button>
+      </div>
+  </form>
 </ion-content>

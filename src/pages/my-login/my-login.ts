@@ -20,5 +20,11 @@ export class MyLogin {
   ionViewDidLoad() {
     console.log('ionViewDidLoad MyLogin');
   }
-
+//  export interface GetTodo {
+//   todoTask: string
+//   isfavourite: boolean
+//   CreateBy: string
+//   CreateAt: string
+  
+// }
 }
