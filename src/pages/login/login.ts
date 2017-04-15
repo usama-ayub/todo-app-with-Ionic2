@@ -19,7 +19,7 @@ export class Login {
     this.register = Register;
   }
   doLogin(user) {
-    if (!user.invalid) {
+    if (!user.valid) {
       console.log("false")
     } else {
       this.auth.login(this.user)
