@@ -9,6 +9,8 @@ import { ListPage } from '../pages/list/list';
 import { Login } from '../pages/login/login';
 import { Register } from '../pages/register/register';
 
+
+import { App } from '../providers/app';
 import { Auth } from '../providers/auth';
 import { Todo } from '../providers/todo';
 
@@ -41,6 +43,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     SplashScreen,
     Auth,
     Todo,
+    App,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

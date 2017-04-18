@@ -21,15 +21,15 @@ export class Auth {
     console.log('Hello Auth Provider');
   }
 
-  login({ email, password }): Promise<any> {
+  login({ email, password }) {
     let url = `${AppConfig.API_URL}/login`;
     return this.http.post(url, {
       email: email,
       password: password
-    }).toPromise();
+    });
   }
 
-  register({ firstName, lastName, userName, email, password }): Promise<any> {
+  register({ firstName, lastName, userName, email, password }) {
     let url = `${AppConfig.API_URL}/register`;
     return this.http.post(url, {
       firstName: firstName,
@@ -37,9 +37,10 @@ export class Auth {
       lastName: lastName,
       email: email,
       password: password
-    }).toPromise();
+    });
   }
-  
+
+
   get uid() {
     return this.getUserData().id;
   }

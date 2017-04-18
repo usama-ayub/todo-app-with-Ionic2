@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
-import {HomePage } from '../home/home';
-import {Register } from '../register/register';
+import { App } from '../../providers/app';
+import { HomePage } from '../home/home';
+import { Register } from '../register/register';
 
 
 @Component({
@@ -10,23 +11,36 @@ import {Register } from '../register/register';
   templateUrl: 'login.html',
 })
 export class Login {
+  loading: any;
+  data: any;
   user = {
     email: '',
     password: ''
   }
-  register:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: Auth) {
+
+  register: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private auth: Auth, private loadingCtrl: LoadingController, private app: App) {
     this.register = Register;
   }
+
   doLogin(user) {
+    event.preventDefault();
     if (!user.valid) {
       console.log("false")
     } else {
+      this.app.Loader.present();
       this.auth.login(this.user)
-        .then(data => {
-          localStorage.setItem('loginData', data._body);
-          this.navCtrl.push(HomePage)
-          this.user = {email: '',password: ''}
+        .subscribe(result => {
+          if (result.status == 200) {
+            console.log(result);
+           this.app.Loader.dismiss();
+            this.data = result
+            localStorage.setItem('loginData', this.data._body);
+            this.navCtrl.setRoot(HomePage)
+            this.user = { email: '', password: '' }
+          }
+        }, error => {
+          console.log("Error happened" + error)
         })
     }
     //this.navCtrl.push(HomePage)
@@ -34,7 +48,8 @@ export class Login {
     //next page get param this.navParams.get()
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Login');
+    let confirmData = JSON.parse(localStorage.getItem('loginData')).data;
+    if (confirmData) return this.navCtrl.push(HomePage);
   }
 
 }

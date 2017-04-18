@@ -1,37 +1,72 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { Login } from '../login/login';
 
 @Component({
   selector: 'page-list',
   templateUrl: 'list.html'
 })
 export class ListPage {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
-
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
-    }
+  currentTimer: number;
+  isActive: boolean = true;
+  timer: any;
+  minutes: any = 0;
+  seconds: any = 0;
+  public setTime: any;
+  pormodo: any;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
   }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
+  pormodos() {
+    this.setTime = 2;
+    this.currentTimer = this.setTime * 60
+    this.start()
+  }
+  short() {
+    this.setTime = 1;
+    this.currentTimer = this.setTime * 60
+    this.start()
+  }
+  long() {
+    this.setTime = 2;
+    this.currentTimer = this.setTime * 60
+    this.start()
+  }
+  reset() {
+    this.minutes = this.setTime
+    this.seconds = 0;
+    this.isActive = false;
+  }
+  stop() {
+    this.isActive = false;
+  };
+  start() {
+    this.isActive = true;
+    if (this.setTime === undefined) {
+      this.setTime = 2
+      this.currentTimer = this.setTime * 60
+    }
+    this.timer = setInterval(() => {
+      this.runTimer();
+    }, 1000)
+  }
+  runTimer() {
+    if (this.isActive) {
+      this.currentTimer -= 1;
+      this.timerZone(this.currentTimer);
+      if (this.currentTimer <= 0) {
+        clearInterval(this.timer)
+        this.timerZone(this.currentTimer);
+        return this.isActive = false
+      }
+    }
+  };
+  timerZone(time) {
+    this.minutes = Math.floor(time / 60);
+    this.seconds = time - this.minutes * 60;
+  }
+  doLogout() {
+    localStorage.clear();
+    this.navCtrl.setRoot(Login)
   }
 }
